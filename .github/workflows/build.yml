@@ -1,0 +1,32 @@
+name: Build using Github Actions
+on: [push, pull_request]
+jobs:
+  build-source:
+    name: Checkout source code and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y python3-pyserial cmake
+      - name: Install Arduino CLI
+        uses: arduino/setup-arduino-cli@v1
+      - name: Install ESP32 SDK
+        run: |
+          arduino-cli config add board_manager.additional_urls https://dl.espressif.com/dl/package_esp32_index.json
+          arduino-cli core update-index
+          arduino-cli core install esp32:esp32
+      - name: Install Arduino CMake Toolchain
+        uses: actions/checkout@v2
+        with:
+          repository: technyon/Arduino-CMake-Toolchain
+          path: ../arduino-toolchain
+      - name: Build
+        run: |
+          mkdir -p build
+          cd build
+          cmake -D CMAKE_TOOLCHAIN_FILE=../../arduino-toolchain/Arduino-toolchain.cmake ..
+          make
