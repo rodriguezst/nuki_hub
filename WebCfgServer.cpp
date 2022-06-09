@@ -430,7 +430,7 @@ void WebCfgServer::buildCredHtml(String &response)
 void WebCfgServer::buildMqttConfigHtml(String &response)
 {
     response.concat("<FORM ACTION=method=get >");
-    response.concat("<h3>MQTT COnfiguration</h3>");
+    response.concat("<h3>MQTT Configuration</h3>");
     response.concat("<table>");
     printInputField(response, "HOSTNAME", "Host name", _preferences->getString(preference_hostname).c_str(), 100);
     printInputField(response, "MQTTSERVER", "MQTT Broker", _preferences->getString(preference_mqtt_broker).c_str(), 100);
