@@ -23,8 +23,8 @@ jobs:
         run: |
           tar -xvf arduino-ide/arduino-*.tar.xz --directory ~/
           rm -rf arduino-ide
-          cd ~/arduino*
-          ./install.sh
+          #cd ~/arduino*
+          #./install.sh
       - name: Install Arduino CLI
         uses: arduino/setup-arduino-cli@v1
       - name: Install ESP32 SDK
