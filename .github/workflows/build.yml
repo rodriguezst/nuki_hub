@@ -16,6 +16,7 @@ jobs:
         uses: arduino/setup-arduino-cli@v1
       - name: Install ESP32 SDK
         run: |
+          arduino-cli config init
           arduino-cli config add board_manager.additional_urls https://dl.espressif.com/dl/package_esp32_index.json
           arduino-cli core update-index
           arduino-cli core install esp32:esp32
