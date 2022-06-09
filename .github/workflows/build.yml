@@ -20,6 +20,7 @@ jobs:
           arduino-cli config add board_manager.additional_urls https://dl.espressif.com/dl/package_esp32_index.json
           arduino-cli core update-index
           arduino-cli core install esp32:esp32
+          arduino-cli lib install Ethernet
           find ~/.arduino15/
       - name: Install Arduino CMake Toolchain
         uses: actions/checkout@v2
