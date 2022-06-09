@@ -12,15 +12,16 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-serial cmake
-      - name: Install Arduino CLI
-        uses: arduino/setup-arduino-cli@v1
+      #- name: Install Arduino CLI
+      #  uses: arduino/setup-arduino-cli@v1
       - name: Install ESP32 SDK
         run: |
-          arduino-cli config init
-          arduino-cli config add board_manager.additional_urls https://dl.espressif.com/dl/package_esp32_index.json
-          arduino-cli core update-index
-          arduino-cli core install esp32:esp32
-          arduino-cli lib install Ethernet
+          curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+          bin/arduino-cli config init
+          bin/arduino-cli config add board_manager.additional_urls https://dl.espressif.com/dl/package_esp32_index.json
+          bin/arduino-cli core update-index
+          bin/arduino-cli core install esp32:esp32
+          bin/arduino-cli lib install Ethernet
           find ~/.arduino15/
       - name: Install Arduino CMake Toolchain
         uses: actions/checkout@v2
@@ -31,5 +32,5 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake -D ARDUINO_INSTALL_PATH=~/.arduino15/ -D CMAKE_TOOLCHAIN_FILE=../arduino-toolchain/Arduino-toolchain.cmake ..
+          cmake -D CMAKE_TOOLCHAIN_FILE=../arduino-toolchain/Arduino-toolchain.cmake ..
           make
