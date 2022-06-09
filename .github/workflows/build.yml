@@ -12,19 +12,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-serial cmake
-      - name: Download latest Arduino IDE
-        uses: robinraju/release-downloader@v1.3
-        with:
-          repository: "arduino/arduino"
-          latest: true
-          fileName: "*"
-          out-file-path: "arduino-ide"
       - name: Install Arduino IDE
         run: |
-          tar -xvf arduino-ide/arduino-*.tar.xz --directory ~/
-          rm -rf arduino-ide
-          #cd ~/arduino*
-          #./install.sh
+          curl -L https://downloads.arduino.cc/arduino-1.8.12-linux64.tar.xz -o /tmp/arduino-ide.tar.xz
+          tar -xvf /tmp/arduino-ide.tar.xz --directory ~/
+          cd ~/arduino*
+          ./install.sh
       - name: Install Arduino CLI
         uses: arduino/setup-arduino-cli@v1
       - name: Install ESP32 SDK
