@@ -29,5 +29,6 @@ jobs:
         run: |
           mkdir -p build
           cd build
+          export ARDUINO_SDK_PATH=~/.arduino15/
           cmake -D CMAKE_TOOLCHAIN_FILE=../arduino-toolchain/Arduino-toolchain.cmake ..
           make
