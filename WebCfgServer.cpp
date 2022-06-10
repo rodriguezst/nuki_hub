@@ -150,6 +150,21 @@ bool WebCfgServer::processArgs(String& message)
             _preferences->putString(preference_mqtt_path, value);
             configChanged = true;
         }
+        else if(key == "MQTTCA")
+        {
+            _preferences->putString(preference_mqtt_ca, value);
+            configChanged = true;
+        }
+        else if(key == "MQTTCRT")
+        {
+            _preferences->putString(preference_mqtt_crt, value);
+            configChanged = true;
+        }
+        else if(key == "MQTTKEY")
+        {
+            _preferences->putString(preference_mqtt_key, value);
+            configChanged = true;
+        }
         else if(key == "HOSTNAME")
         {
             _preferences->putString(preference_hostname, value);
@@ -278,6 +293,9 @@ void WebCfgServer::buildHtml(String& response)
     printInputField(response, "MQTTUSER", "MQTT User (# to clear)", _preferences->getString(preference_mqtt_user).c_str(), 30);
     printInputField(response, "MQTTPASS", "MQTT Password", "*", 30, true);
     printInputField(response, "MQTTPATH", "MQTT Path", _preferences->getString(preference_mqtt_path).c_str(), 180);
+    printInputField(response, "MQTTCA", "MQTT SSL CA Certificate", _preferences->getString(preference_mqtt_ca).c_str(), 180);
+    printInputField(response, "MQTTCRT", "MQTT SSL Client Certificate", _preferences->getString(preference_mqtt_crt).c_str(), 180);
+    printInputField(response, "MQTTKEY", "MQTT SSL Client Key", _preferences->getString(preference_mqtt_key).c_str(), 180);
     printInputField(response, "HOSTNAME", "Host name", _preferences->getString(preference_hostname).c_str(), 100);
     printInputField(response, "NETTIMEOUT", "Network Timeout until restart (seconds; -1 to disable)", _preferences->getInt(preference_network_timeout), 5);
     printInputField(response, "LSTINT", "Query interval lock state (seconds)", _preferences->getInt(preference_query_interval_lockstate), 10);
