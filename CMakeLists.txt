@@ -74,6 +74,7 @@ target_link_arduino_libraries(${PROJECT_NAME}
     PRIVATE
         core
         WiFi
+        WiFiClientSecure
         Update
 #        WebServer
         DNSServer
