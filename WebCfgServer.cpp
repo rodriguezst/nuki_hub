@@ -293,9 +293,9 @@ void WebCfgServer::buildHtml(String& response)
     printInputField(response, "MQTTUSER", "MQTT User (# to clear)", _preferences->getString(preference_mqtt_user).c_str(), 30);
     printInputField(response, "MQTTPASS", "MQTT Password", "*", 30, true);
     printInputField(response, "MQTTPATH", "MQTT Path", _preferences->getString(preference_mqtt_path).c_str(), 180);
-    printInputField(response, "MQTTCA", "MQTT SSL CA Certificate", _preferences->getString(preference_mqtt_ca).c_str(), 180);
-    printInputField(response, "MQTTCRT", "MQTT SSL Client Certificate", _preferences->getString(preference_mqtt_crt).c_str(), 180);
-    printInputField(response, "MQTTKEY", "MQTT SSL Client Key", _preferences->getString(preference_mqtt_key).c_str(), 180);
+    printTextarea(response, "MQTTCA", "MQTT SSL CA Certificate", _preferences->getString(preference_mqtt_ca).c_str(), 1800);
+    printTextarea(response, "MQTTCRT", "MQTT SSL Client Certificate", _preferences->getString(preference_mqtt_crt).c_str(), 1800);
+    printTextarea(response, "MQTTKEY", "MQTT SSL Client Key", _preferences->getString(preference_mqtt_key).c_str(), 1800);
     printInputField(response, "HOSTNAME", "Host name", _preferences->getString(preference_hostname).c_str(), 100);
     printInputField(response, "NETTIMEOUT", "Network Timeout until restart (seconds; -1 to disable)", _preferences->getInt(preference_network_timeout), 5);
     printInputField(response, "LSTINT", "Query interval lock state (seconds)", _preferences->getInt(preference_query_interval_lockstate), 10);
@@ -493,6 +493,32 @@ void WebCfgServer::printCheckBox(String &response, const char *token, const char
     response.concat("\"");
     response.concat(value ? " checked=\"checked\"" : "");
     response.concat(" />");
+    response.concat("</td>");
+    response.concat("</tr>");
+}
+
+void WebCfgServer::printTextarea(String& response,
+                                   const char *token,
+                                   const char *description,
+                                   const char *value,
+                                   const size_t maxLength)
+{
+    char maxLengthStr[20];
+
+    itoa(maxLength, maxLengthStr, 10);
+
+    response.concat("<tr>");
+    response.concat("<td>");
+    response.concat(description);
+    response.concat("</td>");
+    response.concat("<td>");
+    response.concat(" <TEXTAREA NAME=\"");
+    response.concat(token);
+    response.concat("\" MAXLENGTH=\"");
+    response.concat(maxLengthStr);
+    response.concat("\\\">");
+    response.concat(value);
+    response.concat("</TEXTAREA>");
     response.concat("</td>");
     response.concat("</tr>");
 }
